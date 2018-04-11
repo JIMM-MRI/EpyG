@@ -1,8 +1,8 @@
 import setuptools
 
-setuptools.setup(name='EPyG',
+setuptools.setup(name='EpyG',
                  version='0.1.0',
-                 packages=['EPyG'],
+                 packages=['EpyG'],
                  author='Daniel Brenner',
                  requires=['numpy']
 
