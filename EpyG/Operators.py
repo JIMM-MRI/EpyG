@@ -1,4 +1,4 @@
-from __future__ import division, print_function
+
 
 import json
 import uuid
@@ -62,7 +62,7 @@ class Operator(object):
         reprstr = ["<b>" + infodict["__type__"] + "</b>"]
         del infodict["__type__"]
 
-        for key in infodict.keys():
+        for key in list(infodict.keys()):
             val = infodict[key]
             reprstr.append("<i>" + str(key) + "</i>" + "=" + str(val))
 
@@ -73,7 +73,7 @@ class Operator(object):
         reprstr = [infodict["__type__"]]
         del infodict["__type__"]
 
-        for key in infodict.keys():
+        for key in list(infodict.keys()):
             val = infodict[key]
             reprstr.append(str(key) + "=" + str(val))
 
@@ -452,10 +452,10 @@ class Observer(Operator):
 
     def apply(self, epg):
 
-        for f_state in self._data_dict_f.keys():
+        for f_state in list(self._data_dict_f.keys()):
             self._data_dict_f[f_state].append(epg.get_f(order=f_state, rx_phase=self.rx_phase))
 
-        for z_state in self._data_dict_z.keys():
+        for z_state in list(self._data_dict_z.keys()):
             self._data_dict_z[z_state].append(epg.get_z(order=z_state))
 
         return super(Observer, self).apply(epg)
@@ -480,7 +480,7 @@ class Observer(Operator):
         html = []
         html.append("<b>Observer</b>")
         html.append("<table>")
-        for state in self._data_dict_f.keys():
+        for state in list(self._data_dict_f.keys()):
             html.append("<tr>")
             html.append("<td><b>F{0}</b></td>".format(state))
             # k row
@@ -490,7 +490,7 @@ class Observer(Operator):
         html.append("</table>")
 
         html.append("<table>")
-        for state in self._data_dict_z.keys():
+        for state in list(self._data_dict_z.keys()):
             html.append("<tr>")
             html.append("<td><b>Z{0}</b></td>".format(state))
             # k row
@@ -507,11 +507,11 @@ class Observer(Operator):
         reprjsondict["F"] = OrderedDict()
         reprjsondict["Z"] = OrderedDict()
 
-        for state in self._data_dict_f.keys():
+        for state in list(self._data_dict_f.keys()):
             reprjsondict["F"][state] = {"real": self.get_f(state).real.tolist(),
                                         "imag": self.get_f(state).imag.tolist()}
 
-        for state in self._data_dict_z.keys():
+        for state in list(self._data_dict_z.keys()):
             reprjsondict["Z"][state] = {"real": self.get_z(state).real.tolist(),
                                         "imag": self.get_z(state).imag.tolist()}
 
@@ -661,7 +661,7 @@ class CompositeOperator(Operator):
         del infodict["__type__"]
         del infodict["operators"]
 
-        for key in infodict.keys():
+        for key in list(infodict.keys()):
             reprstr.append(str(key) + "=" + str(infodict[key]))
 
         reprstr.append("<ol>")

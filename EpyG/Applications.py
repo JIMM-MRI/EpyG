@@ -1,7 +1,7 @@
-from __future__ import division, print_function
 
-import Operators as ops
-import EpyG as ep
+
+from . import Operators as ops
+from . import EpyG as ep
 import numpy as np
 
 def GRE_step(TR, T1, T2, alpha_deg, phi_deg, linear_phase_inc_deg, d=None, observe=True):
