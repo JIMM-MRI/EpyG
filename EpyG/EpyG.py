@@ -7,7 +7,7 @@ Derived from Ed Prachts python implementation
 
 @author: Daniel Brenner
 """
-from __future__ import division, print_function
+
 
 import json
 import sys
@@ -48,7 +48,7 @@ class EpyG(object):
         :type m0: scalar, double or None
 
         """
-        # State vector: index 0,1 transverse dephased states; index 2 longitudinal dephased states 
+        # State vector: index 0,1 transverse dephased states; index 2 longitudinal dephased states
         self.state = np.zeros((3, initial_size), dtype=DTYPE)  # Should encapsulate the state and make it a property
         self.state[2, 0] = m0  # Use meq as equilibrium magnetisation; otherwise use the specified m0
         self.max_state = 0  # Maximum order of occupied states
@@ -208,7 +208,7 @@ class EpyG(object):
 
         """
         cell_spec = "<td>{0:." + str(self.print_digits) + "f} </td>"
-        thresh = np.power(10, -self.print_digits)
+        thresh = np.power(10., -self.print_digits)
 
         html = ["<table>"]
         html.append("<tr>")
@@ -253,7 +253,7 @@ class EpyG(object):
         jsonrepr = OrderedDict()
         jsonrepr['type'] = self.__class__.__name__
         jsonrepr['size'] = self.size()
-        jsonrepr['k'] = range(self.max_state)
+        jsonrepr['k'] = list(range(self.max_state))
         jsonrepr['F+'] = OrderedDict()
         jsonrepr['F-'] = OrderedDict()
         jsonrepr['Z'] = OrderedDict()
@@ -271,6 +271,3 @@ class EpyG(object):
     def store_to_file(self, filename, **kwargs):
         with open(filename, "w") as fp:
             json.dump(self._repr_json_(), fp, skipkeys=False, ensure_ascii=True, indent=4, encoding="utf-8",  **kwargs)
-
-
-
